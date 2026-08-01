@@ -1,5 +1,6 @@
 package com.sooumik.ledgerly.controller;
 
+import com.sooumik.ledgerly.advice.ApiResponse;
 import com.sooumik.ledgerly.dto.request.CreateExpenseRequest;
 import com.sooumik.ledgerly.dto.response.ExpenseResponse;
 import com.sooumik.ledgerly.dto.response.ExpenseSummaryResponse;
@@ -47,9 +48,14 @@ public class ExpenseController {
     }
 
     @DeleteMapping("/{expenseId}")
-    public ResponseEntity<String> deleteExpense(@PathVariable Long expenseId) {
+    public ResponseEntity<ApiResponse<Void>> deleteExpense(@PathVariable Long expenseId) {
 
         expenseService.deleteExpense(expenseId);
-        return ResponseEntity.ok("Expense deleted successfully");
+
+        return ResponseEntity.ok(
+                ApiResponse.<Void>builder()
+                        .message("Expense deleted successfully")
+                        .build()
+        );
     }
 }

@@ -25,6 +25,6 @@ public class CreateExpenseRequest {
     @NotBlank(message = "Category cannot be blank")
     private String category;
 
-    @NotNull(message = "Cannot be empty")
+    @NotNull(message = "Date Cannot be empty")
     private LocalDate date;
 }

@@ -52,8 +52,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ApiResponse<Void>> handleValidationException(
-            MethodArgumentNotValidException ex) {
+    public ResponseEntity<ApiResponse<Void>> handleValidationException( MethodArgumentNotValidException ex) {
 
         List<String> subErrors = ex.getBindingResult()
                 .getFieldErrors()
@@ -76,8 +75,7 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ApiResponse<Void>> handleException(
-            Exception ex) {
+    public ResponseEntity<ApiResponse<Void>> handleException(Exception ex) {
 
         ApiError error = ApiError.builder()
                 .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
