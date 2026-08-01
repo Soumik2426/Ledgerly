@@ -47,6 +47,16 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To get expense by category
     @Override
     public List<ExpenseResponse> getExpensesByCategory(String category) {
+        boolean categoryExists = expenses.values()
+                .stream()
+                .anyMatch(expense ->
+                        expense.getCategory().equalsIgnoreCase(category));
+
+        if (!categoryExists) {
+            throw new ResourceNotFoundException(
+                    "No expenses found for category: " + category);
+        }
+
         return expenses.values()
                 .stream()
                 .filter(expense -> expense.getCategory().equalsIgnoreCase(category))
