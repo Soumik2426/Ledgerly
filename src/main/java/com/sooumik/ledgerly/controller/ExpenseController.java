@@ -66,13 +66,10 @@ public class ExpenseController {
 
     //To delete an already existing expense
     @DeleteMapping("/{expenseId}")
-    public ResponseEntity<ApiResponse<Void>> deleteExpense(@PathVariable Long expenseId) {
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long expenseId) {
+
         expenseService.deleteExpense(expenseId);
 
-        return ResponseEntity.ok(
-                ApiResponse.<Void>builder()
-                        .message("Expense deleted successfully")
-                        .build()
-        );
+        return ResponseEntity.ok().build();
     }
 }
