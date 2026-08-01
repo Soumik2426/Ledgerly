@@ -10,6 +10,8 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.util.List;
+
 @RestControllerAdvice
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     @Override
@@ -21,6 +23,14 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
     public @Nullable Object beforeBodyWrite(@Nullable Object body, MethodParameter returnType, MediaType selectedContentType, Class<? extends HttpMessageConverter<?>> selectedConverterType, ServerHttpRequest request, ServerHttpResponse response) {
         if (body instanceof ApiResponse<?>) {
             return body;
+        }
+
+        if (body instanceof List<?> list && list.isEmpty()) {
+
+            return ApiResponse.builder()
+                    .data(list)
+                    .message("No expenses found")
+                    .build();
         }
 
         String message = getSuccessMessage(request.getMethod().name());
