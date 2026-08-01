@@ -67,6 +67,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To get total expense
     @Override
     public ExpenseSummaryResponse getExpenseSummary() {
+        if (expenses.isEmpty()) {
+            throw new ResourceNotFoundException("No expenses found to generate summary.");
+        }
+
         Double totalExpenses = expenses.values()
                 .stream()
                 .mapToDouble(Expense::getAmount)
