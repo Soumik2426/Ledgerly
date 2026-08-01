@@ -36,7 +36,10 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To get all the expenses
     @Override
     public List<ExpenseResponse> getAllExpenses() {
-        return List.of();
+        return expenses.values()
+                .stream()
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //To get expense by category
