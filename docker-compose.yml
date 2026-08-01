@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  ledgerly:
+    build: .
+    container_name: ledgerly
+
+    ports:
+      - "8080:8080"
+
+    restart: unless-stopped
