@@ -19,6 +19,9 @@ public interface ExpenseService {
     //To get summary of Expense
     ExpenseSummaryResponse getExpenseSummary();
 
+    //To get monthly summary
+    ExpenseSummaryResponse getMonthlySummary(int year, int month);
+
     //To get expense by keyword
     List<ExpenseResponse> searchExpenses(String keyword);
 

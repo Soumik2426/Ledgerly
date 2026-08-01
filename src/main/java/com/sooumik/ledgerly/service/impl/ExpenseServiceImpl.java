@@ -64,6 +64,7 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .toList();
     }
 
+    //To get expense by keyword
     @Override
     public List<ExpenseResponse> searchExpenses(String keyword) {
 
@@ -102,6 +103,40 @@ public class ExpenseServiceImpl implements ExpenseService {
                         Expense::getCategory,
                         Collectors.summingDouble(Expense::getAmount)
                 ));
+
+        return ExpenseSummaryResponse.builder()
+                .totalExpenses(totalExpenses)
+                .categoryWiseExpenses(categoryWiseExpenses)
+                .build();
+    }
+
+    //To get monthly expense summary
+    @Override
+    public ExpenseSummaryResponse getMonthlySummary(int year, int month) {
+
+        List<Expense> monthlyExpenses = expenses.values()
+                .stream()
+                .filter(expense ->
+                        expense.getDate().getYear() == year
+                                && expense.getDate().getMonthValue() == month)
+                .toList();
+
+        if (monthlyExpenses.isEmpty()) {
+            throw new ResourceNotFoundException(
+                    "No expenses found for " + month + "/" + year
+            );
+        }
+
+        Double totalExpenses = monthlyExpenses.stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+
+        Map<String, Double> categoryWiseExpenses =
+                monthlyExpenses.stream()
+                        .collect(Collectors.groupingBy(
+                                Expense::getCategory,
+                                Collectors.summingDouble(Expense::getAmount)
+                        ));
 
         return ExpenseSummaryResponse.builder()
                 .totalExpenses(totalExpenses)

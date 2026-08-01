@@ -10,7 +10,10 @@ import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseBodyAdvice;
 
+import java.time.Month;
+import java.time.format.TextStyle;
 import java.util.List;
+import java.util.Locale;
 
 @RestControllerAdvice
 public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
@@ -33,7 +36,8 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
                     .build();
         }
 
-        String message = getSuccessMessage(request.getMethod().name());
+        String message = getSuccessMessage(request.getMethod().name(),
+                                            request.getURI().getPath());
 
         return ApiResponse.builder()
                 .data(body)
@@ -41,7 +45,21 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
                 .build();
     }
 
-    private String getSuccessMessage(String httpMethod) {
+    private String getSuccessMessage(String httpMethod, String path) {
+
+        if ("GET".equals(httpMethod) && path.matches(".*/summary/\\d{4}/\\d{1,2}$")) {
+
+            String[] parts = path.split("/");
+
+            int year = Integer.parseInt(parts[5]);
+            int month = Integer.parseInt(parts[6]);
+
+            String monthName = Month.of(month)
+                    .getDisplayName(TextStyle.FULL, Locale.ENGLISH);
+
+            return "Expense summary retrieved successfully for "
+                    + monthName + " " + year;
+        }
 
         return switch (httpMethod) {
             case "POST" -> "Expense created successfully";
