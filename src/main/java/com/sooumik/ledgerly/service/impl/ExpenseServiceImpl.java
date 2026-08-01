@@ -5,18 +5,32 @@ import com.sooumik.ledgerly.dto.response.ExpenseResponse;
 import com.sooumik.ledgerly.dto.response.ExpenseSummaryResponse;
 import com.sooumik.ledgerly.model.Expense;
 import com.sooumik.ledgerly.service.ExpenseService;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
+@Service
 public class ExpenseServiceImpl implements ExpenseService {
 
     //To create an Expense
     @Override
     public ExpenseResponse addExpense(CreateExpenseRequest request) {
-        return null;
+        Long expenseId = idGenerator.getAndIncrement();
+
+        Expense expense = Expense.builder()
+                .id(expenseId)
+                .title(request.getTitle())
+                .amount(request.getAmount())
+                .category(request.getCategory())
+                .date(request.getDate())
+                .build();
+
+        expenses.put(expenseId, expense);
+
+        return mapToResponse(expense);
     }
 
     //To get all the expenses
