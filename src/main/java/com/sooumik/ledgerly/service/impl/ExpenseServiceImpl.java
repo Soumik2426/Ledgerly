@@ -64,6 +64,26 @@ public class ExpenseServiceImpl implements ExpenseService {
                 .toList();
     }
 
+    @Override
+    public List<ExpenseResponse> searchExpenses(String keyword) {
+
+        List<ExpenseResponse> searchedExpenses = expenses.values()
+                .stream()
+                .filter(expense ->
+                        expense.getTitle().toLowerCase().contains(keyword.toLowerCase())
+                                || expense.getCategory().toLowerCase().contains(keyword.toLowerCase()))
+                .map(this::mapToResponse)
+                .toList();
+
+        if (searchedExpenses.isEmpty()) {
+            throw new ResourceNotFoundException(
+                    "No expenses found matching: " + keyword
+            );
+        }
+
+        return searchedExpenses;
+    }
+
     //To get total expense
     @Override
     public ExpenseSummaryResponse getExpenseSummary() {

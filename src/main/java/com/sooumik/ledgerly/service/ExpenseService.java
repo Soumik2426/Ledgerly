@@ -19,6 +19,9 @@ public interface ExpenseService {
     //To get summary of Expense
     ExpenseSummaryResponse getExpenseSummary();
 
+    //To get expense by keyword
+    List<ExpenseResponse> searchExpenses(String keyword);
+
     //To delete an already existing expense
     void deleteExpense(Long expenseId);
 }

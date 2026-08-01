@@ -47,6 +47,13 @@ public class ExpenseController {
         return ResponseEntity.ok(expenseService.getExpenseSummary());
     }
 
+    @GetMapping("/search/{keyword}")
+    public ResponseEntity<List<ExpenseResponse>> searchExpenses(
+            @PathVariable String keyword) {
+
+        return ResponseEntity.ok(expenseService.searchExpenses(keyword));
+    }
+
     @DeleteMapping("/{expenseId}")
     public ResponseEntity<ApiResponse<Void>> deleteExpense(@PathVariable Long expenseId) {
 
