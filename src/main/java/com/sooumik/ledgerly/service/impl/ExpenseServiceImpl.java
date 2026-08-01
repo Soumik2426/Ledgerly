@@ -2,10 +2,12 @@ package com.sooumik.ledgerly.service.impl;
 
 import com.sooumik.ledgerly.dto.request.CreateExpenseRequest;
 import com.sooumik.ledgerly.dto.response.ExpenseResponse;
+import com.sooumik.ledgerly.dto.response.ExpenseSummaryResponse;
 import com.sooumik.ledgerly.model.Expense;
 import com.sooumik.ledgerly.service.ExpenseService;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
@@ -16,7 +18,26 @@ public class ExpenseServiceImpl implements ExpenseService {
         return null;
     }
 
-    private final Map<Long, Expense> expenses = new HashMap<>();
+    @Override
+    public List<ExpenseResponse> getAllExpenses() {
+        return List.of();
+    }
 
+    @Override
+    public List<ExpenseResponse> getExpensesByCategory(String category) {
+        return List.of();
+    }
+
+    @Override
+    public ExpenseSummaryResponse getExpenseSummary() {
+        return null;
+    }
+
+    @Override
+    public void deleteExpense(Long expenseId) {
+
+    }
+
+    private final Map<Long, Expense> expenses = new HashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
 }
