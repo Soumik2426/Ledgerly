@@ -2,7 +2,7 @@
 
 ## Overview
 
-I used AI (mainly ChatGPT) the way I'd use a senior teammate sitting next to me — someone to bounce ideas off, sanity-check decisions, and speed up the boring parts. It wasn't writing the project for me; I was still the one deciding what "correct" looked like, typing the final code, running it, and fixing it when it broke.
+I used AI (mainly ChatGPT) the way I'd use a senior teammate sitting next to me — someone to bounce ideas off, sanity-check decisions, and speed up the boring parts. It wasn't writing the project for me, I was still the one deciding what "correct" looked like, typing the final code, running it, and fixing it when it broke.
 
 Every line in the repo was compiled, run, and tested by me before it made it into the submission. AI suggestions that didn't hold up — or didn't fit the way I'd structured the project — got reworked or thrown out.
 
@@ -18,7 +18,7 @@ Every line in the repo was compiled, run, and tested by me before it made it int
 
 **Where AI genuinely helped:**
 - **Talking through architecture** — I used it as a sounding board for how to keep controllers thin and push logic into the service layer, and to sanity-check REST naming conventions before I committed to them.
-- **Unsticking bugs faster** — Maven dependency clashes, a Spring Boot version mismatch, MockMvc setup that wasn't wiring up correctly, and a couple of Docker build failures. In each case AI helped me narrow down *where* to look; I still had to verify the fix actually worked locally.
+- **Unsticking bugs faster** — Maven dependency clashes, a Spring Boot version mismatch, MockMvc setup that wasn't wiring up correctly, and a couple of Docker build failures. In each case AI helped me narrow down *where* to look, I still had to verify the fix actually worked locally.
 - **Test scenario brainstorming** — when I was listing edge cases (empty results, missing resources, validation failures), I used AI to make sure I wasn't missing an obvious one. I then wrote and ran the tests myself.
 - **Documentation polish** — tightening up the README structure and wording after I'd already decided what needed documenting.
 
