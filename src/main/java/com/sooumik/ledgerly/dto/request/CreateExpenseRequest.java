@@ -15,16 +15,16 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CreateExpenseRequest {
-    @NotBlank
+    @NotBlank(message = "Title cannot be blanl")
     private String title;
 
     @NotNull
-    @Positive
+    @Positive(message = "Amount has to greater than zero")
     private Double amount;
 
-    @NotBlank
+    @NotBlank(message = "Category cannot be blank")
     private String category;
 
-    @NotNull
+    @NotNull(message = "Cannot be empty")
     private LocalDate date;
 }
