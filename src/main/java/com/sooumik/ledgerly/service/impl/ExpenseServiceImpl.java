@@ -45,7 +45,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To get expense by category
     @Override
     public List<ExpenseResponse> getExpensesByCategory(String category) {
-        return List.of();
+        return expenses.values()
+                .stream()
+                .filter(expense -> expense.getCategory().equalsIgnoreCase(category))
+                .map(this::mapToResponse)
+                .toList();
     }
 
     //To get total expense

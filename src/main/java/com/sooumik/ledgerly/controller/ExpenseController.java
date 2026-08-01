@@ -29,4 +29,14 @@ public class ExpenseController {
     public ResponseEntity<List<ExpenseResponse>> getAllExpenses() {
         return ResponseEntity.ok(expenseService.getAllExpenses());
     }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<ExpenseResponse>> getExpenses(@PathVariable String category) {
+
+        if (category != null) {
+            return ResponseEntity.ok(expenseService.getExpensesByCategory(category));
+        }
+
+        return ResponseEntity.ok(expenseService.getAllExpenses());
+    }
 }
