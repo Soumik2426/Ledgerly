@@ -11,6 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Service
 public class ExpenseServiceImpl implements ExpenseService {
@@ -55,7 +56,22 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To get total expense
     @Override
     public ExpenseSummaryResponse getExpenseSummary() {
-        return null;
+        Double totalExpenses = expenses.values()
+                .stream()
+                .mapToDouble(Expense::getAmount)
+                .sum();
+
+        Map<String, Double> categoryWiseExpenses = expenses.values()
+                .stream()
+                .collect(Collectors.groupingBy(
+                        Expense::getCategory,
+                        Collectors.summingDouble(Expense::getAmount)
+                ));
+
+        return ExpenseSummaryResponse.builder()
+                .totalExpenses(totalExpenses)
+                .categoryWiseExpenses(categoryWiseExpenses)
+                .build();
     }
 
     //To delete an already existing expense

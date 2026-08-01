@@ -2,6 +2,7 @@ package com.sooumik.ledgerly.controller;
 
 import com.sooumik.ledgerly.dto.request.CreateExpenseRequest;
 import com.sooumik.ledgerly.dto.response.ExpenseResponse;
+import com.sooumik.ledgerly.dto.response.ExpenseSummaryResponse;
 import com.sooumik.ledgerly.service.ExpenseService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -38,5 +39,10 @@ public class ExpenseController {
         }
 
         return ResponseEntity.ok(expenseService.getAllExpenses());
+    }
+
+    @GetMapping("/summary")
+    public ResponseEntity<ExpenseSummaryResponse> getExpenseSummary() {
+        return ResponseEntity.ok(expenseService.getExpenseSummary());
     }
 }
