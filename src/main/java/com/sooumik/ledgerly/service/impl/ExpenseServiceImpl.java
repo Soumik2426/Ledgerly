@@ -3,6 +3,7 @@ package com.sooumik.ledgerly.service.impl;
 import com.sooumik.ledgerly.dto.request.CreateExpenseRequest;
 import com.sooumik.ledgerly.dto.response.ExpenseResponse;
 import com.sooumik.ledgerly.dto.response.ExpenseSummaryResponse;
+import com.sooumik.ledgerly.exceptions.ResourceNotFoundException;
 import com.sooumik.ledgerly.model.Expense;
 import com.sooumik.ledgerly.service.ExpenseService;
 import org.springframework.stereotype.Service;
@@ -77,7 +78,11 @@ public class ExpenseServiceImpl implements ExpenseService {
     //To delete an already existing expense
     @Override
     public void deleteExpense(Long expenseId) {
-
+        if (!expenses.containsKey(expenseId)) {
+            throw new ResourceNotFoundException(
+                    "Expense not found with id: " + expenseId);
+        }
+        expenses.remove(expenseId);
     }
 
     //Will act as temporary database

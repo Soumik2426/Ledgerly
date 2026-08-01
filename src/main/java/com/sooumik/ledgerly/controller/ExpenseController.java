@@ -45,4 +45,11 @@ public class ExpenseController {
     public ResponseEntity<ExpenseSummaryResponse> getExpenseSummary() {
         return ResponseEntity.ok(expenseService.getExpenseSummary());
     }
+
+    @DeleteMapping("/{expenseId}")
+    public ResponseEntity<Void> deleteExpense(@PathVariable Long expenseId) {
+
+        expenseService.deleteExpense(expenseId);
+        return ResponseEntity.noContent().build();
+    }
 }
